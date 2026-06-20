@@ -8,6 +8,11 @@
       name="description"
       content="re:Memoryは、親子の写真や言葉をいったん眠らせ、未来の節目に届ける思い出アプリです。"
     >
+    <meta property="og:title" content="re:Memory | 思い出を、未来でひらく。">
+    <meta property="og:description" content="親子の写真や言葉をいったん眠らせ、未来の節目にもう一度出会うための思い出アプリです。">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="./assets/memory-hero.png">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="./assets/logo.png">
     <style>
 :root {
@@ -356,6 +361,97 @@ h2 {
   line-height: 2;
 }
 
+.split-list,
+.scene-grid,
+.sample-grid,
+.faq-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 34px;
+}
+
+.split-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.scene-grid,
+.sample-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.faq-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.compare-card,
+.scene-card,
+.sample-card,
+.faq-card {
+  min-width: 0;
+  padding: 22px;
+  background: rgba(255, 253, 248, 0.74);
+  border: 1px solid rgba(31, 42, 42, 0.11);
+  border-radius: 8px;
+}
+
+.compare-card strong,
+.scene-card strong,
+.sample-card strong,
+.faq-card strong {
+  display: block;
+  color: var(--green-deep);
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.compare-card p,
+.scene-card p,
+.sample-card p,
+.faq-card p,
+.section-note {
+  margin-top: 10px;
+  color: var(--sub);
+  font-size: 15px;
+  line-height: 1.9;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  line-break: auto;
+}
+
+.compare-list {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--sub);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.demo-link-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 20px;
+  align-items: center;
+  margin-top: 34px;
+  padding: 24px;
+  background: var(--green-deep);
+  border-radius: 8px;
+  color: white;
+}
+
+.demo-link-panel p {
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.demo-link-panel .button {
+  color: var(--green-deep);
+  background: white;
+}
+
 .statement {
   padding: clamp(10px, 3vw, 22px) clamp(20px, 5vw, 64px) clamp(36px, 6vw, 70px);
 }
@@ -664,7 +760,15 @@ h3 {
   }
 
   .flow,
+  .split-list,
+  .scene-grid,
+  .sample-grid,
+  .faq-grid,
   .mvp-list {
+    grid-template-columns: 1fr;
+  }
+
+  .demo-link-panel {
     grid-template-columns: 1fr;
   }
 
@@ -769,7 +873,8 @@ h3 {
           </p>
           <div class="actions">
             <a class="button primary" href="#why">コンセプトを見る</a>
-            <a class="button ghost" href="#mvp">MVPを見る</a>
+            <a class="button ghost" href="demo.html">3分デモを試す</a>
+            <a class="button ghost" href="#messages">ひとことを投稿する</a>
           </div>
         </div>
 
@@ -825,6 +930,44 @@ h3 {
         </div>
       </section>
 
+      <section class="section">
+        <div class="section-heading">
+          <div class="section-label">Difference</div>
+          <h2>
+            <span class="line">普通の写真アプリとは</span>
+            <span class="line">役割が違います。</span>
+          </h2>
+          <p class="section-note">
+            re:Memoryは写真をたくさん整理する場所ではなく、未来の自分や親子に届けたい一場面だけを選ぶ場所です。
+          </p>
+        </div>
+        <div class="split-list">
+          <div class="compare-card">
+            <strong>写真アプリ</strong>
+            <ul class="compare-list">
+              <li>たくさん保存する</li>
+              <li>すぐに見返す</li>
+              <li>日付やアルバムで整理する</li>
+            </ul>
+          </div>
+          <div class="compare-card">
+            <strong>re:Memory</strong>
+            <ul class="compare-list">
+              <li>少しだけ選ぶ</li>
+              <li>いったん見えない場所に置く</li>
+              <li>意味のある日にもう一度出会う</li>
+            </ul>
+          </div>
+        </div>
+        <div class="demo-link-panel">
+          <div>
+            <strong>LPだけで体験できます</strong>
+            <p>サンプル写真、ひとこと、開封日を選ぶと、思い出カプセル風のカードがその場でできます。</p>
+          </div>
+          <a class="button" href="demo.html">デモを開く</a>
+        </div>
+      </section>
+
       <section id="how" class="section how">
         <div class="section-heading">
           <div class="section-label">How</div>
@@ -849,6 +992,34 @@ h3 {
             <h3>届ける</h3>
             <p>誕生日、新学期、卒業前など、親子にとって意味のあるタイミングで思い出が戻ってきます。</p>
           </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <div class="section-label">Scenes</div>
+          <h2>
+            <span class="line">思い出が戻る日は</span>
+            <span class="line">日常の節目です。</span>
+          </h2>
+        </div>
+        <div class="scene-grid">
+          <div class="scene-card">
+            <strong>誕生日</strong>
+            <p>一年前の言葉と、今の成長を並べて見られる日。</p>
+          </div>
+          <div class="scene-card">
+            <strong>新学期</strong>
+            <p>少し不安な朝に、前の自分から励ましが届く日。</p>
+          </div>
+          <div class="scene-card">
+            <strong>卒業前</strong>
+            <p>当たり前だった毎日を、親子で振り返れる日。</p>
+          </div>
+          <div class="scene-card">
+            <strong>何気ない放課後</strong>
+            <p>特別ではなかった時間が、未来で宝物になる日。</p>
+          </div>
         </div>
       </section>
 
@@ -883,6 +1054,34 @@ h3 {
         </div>
       </section>
 
+      <section class="section">
+        <div class="section-heading">
+          <div class="section-label">Words</div>
+          <h2>
+            <span class="line">長い文章よりも、</span>
+            <span class="line">その日の温度を残す。</span>
+          </h2>
+        </div>
+        <div class="sample-grid">
+          <div class="sample-card">
+            <strong>親から子へ</strong>
+            <p>「少し不安そうだったけれど、玄関でとても誇らしそうに笑っていた。」</p>
+          </div>
+          <div class="sample-card">
+            <strong>子どもの言葉</strong>
+            <p>「今日はこわかった。でも、ランドセルがうれしい。」</p>
+          </div>
+          <div class="sample-card">
+            <strong>未来の自分へ</strong>
+            <p>「忘れていても大丈夫。この日はちゃんとここにある。」</p>
+          </div>
+          <div class="sample-card">
+            <strong>再会した日</strong>
+            <p>「あの時の自分に、今ならありがとうと言える。」</p>
+          </div>
+        </div>
+      </section>
+
       <section id="messages" class="section board">
         <div class="board-panel">
           <div class="board-copy">
@@ -891,6 +1090,9 @@ h3 {
               <span class="line">未来に残したい</span>
               <span class="line">ひとことを集める。</span>
             </h2>
+            <p class="section-note">
+              投稿はこのページを見た人にも表示されます。個人情報、住所、学校名、顔写真につながる内容は書かないでください。
+            </p>
             <form class="message-form" id="message-form">
               <label>
                 お名前
@@ -906,6 +1108,34 @@ h3 {
           </div>
           <div class="message-list" id="message-list" aria-live="polite">
             <p class="message-empty">読み込み中です。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <div class="section-label">FAQ</div>
+          <h2>
+            <span class="line">使う前の不安を</span>
+            <span class="line">先にほどく。</span>
+          </h2>
+        </div>
+        <div class="faq-grid">
+          <div class="faq-card">
+            <strong>すぐ見返せないのですか？</strong>
+            <p>re:Memoryでは、思い出をいったん日常の一覧から離します。削除ではなく、未来の再会のために眠らせる考え方です。</p>
+          </div>
+          <div class="faq-card">
+            <strong>写真をたくさん保存できますか？</strong>
+            <p>最初の体験では、象徴する一枚を選ぶことを大切にします。量よりも、未来で意味を持つ一場面を残します。</p>
+          </div>
+          <div class="faq-card">
+            <strong>掲示板の投稿は誰が見られますか？</strong>
+            <p>このLPの掲示板に投稿した内容は、ページを見た人に表示されます。個人情報は書かない設計で使ってください。</p>
+          </div>
+          <div class="faq-card">
+            <strong>本物のアプリはありますか？</strong>
+            <p>このLPではコンセプトと体験デモを見られます。今後は写真、言葉、開封日を安全に扱うアプリへ発展させます。</p>
           </div>
         </div>
       </section>

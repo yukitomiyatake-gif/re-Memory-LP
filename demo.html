@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>デモ | re:Memory</title>
-    <meta name="description" content="re:Memoryの使い方を体験できる簡易デモページです。写真を選び、言葉を添え、未来の日に思い出をひらく流れを紹介します。">
+    <title>3分デモ | re:Memory</title>
+    <meta name="description" content="re:Memoryの思い出カプセルをLP上で体験できるデモページです。">
     <link rel="icon" href="./assets/logo.png">
     <style>
       :root {
@@ -12,14 +12,13 @@
         --sub: #60706c;
         --paper: #fff9ef;
         --milk: #fffdf8;
-        --mist: #edf1eb;
         --line: rgba(31, 42, 42, 0.13);
         --green: #176e66;
         --green-deep: #0d4846;
         --green-soft: #dbece7;
         --clay: #c86b55;
         --clay-soft: #f7dfd4;
-        --shadow: 0 22px 58px rgba(31, 42, 42, 0.12);
+        --shadow: 0 24px 70px rgba(31, 42, 42, 0.14);
       }
 
       * { box-sizing: border-box; }
@@ -27,12 +26,13 @@
       body {
         margin: 0;
         color: var(--ink);
-        background: radial-gradient(circle at right top, #eef4ea 0, rgba(238, 244, 234, 0) 36%), var(--paper);
+        background: radial-gradient(circle at 88% 8%, #eef4ea 0, rgba(238, 244, 234, 0) 32%), var(--paper);
         font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", system-ui, sans-serif;
         line-height: 1.85;
       }
 
       a { color: inherit; text-decoration: none; }
+      img { display: block; width: 100%; }
       p, h1, h2, h3 { margin: 0; word-break: keep-all; line-break: strict; }
 
       .header {
@@ -81,14 +81,14 @@
       main {
         width: min(1180px, calc(100% - 40px));
         margin: 0 auto;
+        padding: clamp(52px, 8vw, 94px) 0 clamp(78px, 9vw, 118px);
       }
 
       .page-hero {
         display: grid;
-        grid-template-columns: minmax(0, 0.92fr) minmax(320px, 0.72fr);
+        grid-template-columns: minmax(0, 0.82fr) minmax(380px, 1fr);
         gap: clamp(34px, 6vw, 76px);
-        align-items: center;
-        padding: clamp(62px, 9vw, 112px) 0 clamp(42px, 7vw, 76px);
+        align-items: start;
       }
 
       .label {
@@ -105,9 +105,10 @@
       }
 
       h1 {
+        max-width: 500px;
         margin-top: 18px;
-        font-size: clamp(42px, 7vw, 82px);
-        line-height: 1.08;
+        font-size: clamp(34px, 3.4vw, 38px);
+        line-height: 1.14;
       }
 
       .lead {
@@ -117,186 +118,141 @@
         font-size: clamp(16px, 2vw, 20px);
       }
 
-      .demo-shell {
-        position: relative;
-        min-height: 590px;
-        padding: 22px;
+      .demo-form,
+      .capsule-preview {
+        padding: clamp(22px, 4vw, 34px);
         background: rgba(255, 253, 247, 0.78);
         border: 1px solid var(--line);
-        border-radius: 18px;
+        border-radius: 8px;
         box-shadow: var(--shadow);
       }
 
-      .demo-phone {
-        height: 100%;
-        min-height: 546px;
-        overflow: hidden;
-        background: linear-gradient(180deg, #fffdf8, #f3f0e8);
-        border: 1px solid rgba(31, 42, 42, 0.12);
-        border-radius: 24px;
+      .demo-form {
+        display: grid;
+        gap: 18px;
+        margin-top: 30px;
       }
 
-      .demo-top {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 22px;
-        color: var(--green-deep);
-        font-size: 14px;
+      .field {
+        display: grid;
+        gap: 8px;
+      }
+
+      .field span {
+        color: var(--sub);
+        font-size: 13px;
         font-weight: 850;
       }
 
-      .demo-screen {
-        display: grid;
-        gap: 16px;
-        padding: 0 22px 24px;
+      input,
+      textarea,
+      select {
+        width: 100%;
+        border: 1px solid rgba(31, 42, 42, 0.14);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.78);
+        color: var(--ink);
+        font: inherit;
       }
 
-      .memory-photo {
-        min-height: 190px;
-        padding: 22px;
+      input,
+      select {
+        min-height: 48px;
+        padding: 10px 12px;
+      }
+
+      textarea {
+        min-height: 118px;
+        resize: vertical;
+        padding: 12px;
+      }
+
+      input:focus,
+      textarea:focus,
+      select:focus {
+        outline: 2px solid rgba(23, 110, 102, 0.22);
+        border-color: rgba(23, 110, 102, 0.38);
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 52px;
+        padding: 13px 22px;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        color: white;
+        background: var(--green);
+        font-weight: 850;
+        cursor: pointer;
+      }
+
+      .capsule-preview {
+        position: sticky;
+        top: 104px;
+      }
+
+      .preview-photo {
+        min-height: 260px;
         display: grid;
         align-content: end;
+        padding: 22px;
         background:
-          linear-gradient(180deg, rgba(13, 72, 70, 0.02), rgba(13, 72, 70, 0.46)),
+          linear-gradient(180deg, rgba(13, 72, 70, 0.02), rgba(13, 72, 70, 0.48)),
           url("./assets/memory-hero.png") center / cover;
-        border-radius: 18px;
-        color: #fffdf8;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.34);
+        border-radius: 8px;
+        color: white;
       }
 
-      .memory-photo small {
+      .preview-photo small {
         font-size: 12px;
         font-weight: 850;
         opacity: 0.86;
       }
 
-      .memory-photo strong {
+      .preview-photo strong {
         margin-top: 4px;
-        font-size: 26px;
+        font-size: clamp(23px, 4vw, 34px);
         line-height: 1.25;
       }
 
-      .demo-card {
+      .preview-card {
+        margin-top: 14px;
         padding: 18px;
-        background: rgba(255, 253, 247, 0.86);
-        border: 1px solid rgba(31, 42, 42, 0.11);
-        border-radius: 16px;
-      }
-
-      .demo-card span {
-        display: block;
-        color: var(--sub);
-        font-size: 12px;
-        font-weight: 850;
-      }
-
-      .demo-card strong {
-        display: block;
-        margin-top: 6px;
-        color: var(--green-deep);
-        font-size: 21px;
-        line-height: 1.35;
-      }
-
-      .demo-note {
-        color: var(--sub);
-        font-size: 15px;
-      }
-
-      .demo-pill-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-
-      .demo-pill {
-        padding: 7px 10px;
-        color: var(--green-deep);
-        background: rgba(219, 236, 231, 0.72);
-        border: 1px solid rgba(23, 110, 102, 0.12);
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 850;
-      }
-
-      .demo-steps {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 16px;
-        padding: 0 0 clamp(72px, 9vw, 112px);
-      }
-
-      .demo-step {
-        min-width: 0;
-        min-height: 250px;
-        padding: 22px;
-        overflow: hidden;
-        background: var(--milk);
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        box-shadow: 0 14px 36px rgba(31, 42, 42, 0.07);
-      }
-
-      .demo-step .step-num {
-        display: inline-grid;
-        place-items: center;
-        width: 42px;
-        height: 30px;
-        color: var(--clay);
-        background: var(--clay-soft);
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid rgba(31, 42, 42, 0.1);
         border-radius: 8px;
+      }
+
+      .preview-card span {
+        color: var(--sub);
         font-size: 12px;
-        font-weight: 900;
+        font-weight: 850;
       }
 
-      .demo-step h2 {
-        margin-top: 18px;
-        font-size: 22px;
-        line-height: 1.4;
+      .preview-card p,
+      .preview-card strong {
+        display: block;
+        margin-top: 7px;
+        color: var(--ink);
+        font-size: 16px;
+        line-height: 1.8;
         word-break: normal;
         overflow-wrap: anywhere;
-        line-break: auto;
       }
 
-      .demo-step p {
-        margin-top: 10px;
+      .note {
+        margin-top: 14px;
         color: var(--sub);
-        font-size: 15px;
-        word-break: normal;
-        overflow-wrap: anywhere;
-        line-break: auto;
-      }
-
-      .site-footer {
-        padding: 34px clamp(20px, 5vw, 64px);
-        color: var(--sub);
-        background: var(--paper);
-        border-top: 1px solid var(--line);
-      }
-
-      .footer-inner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        width: min(1120px, 100%);
-        margin: 0 auto;
-      }
-
-      .footer-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 14px 18px;
         font-size: 13px;
-        font-weight: 750;
+        line-height: 1.8;
       }
 
       @media (max-width: 900px) {
-        .header, .footer-inner { align-items: flex-start; flex-direction: column; }
-        .page-hero, .demo-steps { grid-template-columns: 1fr; }
-        .demo-shell { min-height: auto; }
-        .demo-step { min-height: auto; }
+        .header { align-items: flex-start; flex-direction: column; }
+        .page-hero { grid-template-columns: 1fr; }
+        .capsule-preview { position: static; }
       }
     </style>
     <link rel="stylesheet" href="./assets/premium.css">
@@ -311,87 +267,84 @@
         <a href="./index.html">トップ</a>
         <a href="./demo.html" aria-current="page">デモ</a>
         <a href="./guide.html">使い方</a>
+        <a href="./index.html#messages">掲示板</a>
         <a href="./company.html">会社情報</a>
-        <a href="./privacy.html">プライバシー</a>
       </nav>
     </header>
 
     <main>
       <section class="page-hero">
         <div>
-          <span class="label">Demo</span>
-          <h1>思い出が、未来で届くまで。</h1>
-          <p class="lead">写真をただ保存するのではなく、親子の言葉と一緒にいったん眠らせる。re:Memoryの体験を、短いデモとして見られるページです。</p>
+          <span class="label">3分デモ</span>
+          <h1 style="max-width: 460px; font-size: 38px; line-height: 1.18;">思い出カプセルを、<br>その場で作ってみる。</h1>
+          <p class="lead">
+            実際の保存はせず、LP内だけでカードを作れるデモです。写真を選ぶ気持ち、言葉を添える感覚、未来の日に開く体験を短く試せます。
+          </p>
+
+          <form class="demo-form" id="capsule-form">
+            <label class="field">
+              <span>思い出のタイトル</span>
+              <input id="capsule-title" maxlength="48" value="放課後、はじめて二人で帰った日">
+            </label>
+            <label class="field">
+              <span>その日に残すひとこと</span>
+              <textarea id="capsule-message" maxlength="240">今日は少し不安。でも、ランドセルがうれしい。</textarea>
+            </label>
+            <label class="field">
+              <span>開くタイミング</span>
+              <select id="capsule-date">
+                <option>2028年4月8日 / 中学校の入学前</option>
+                <option>次の誕生日</option>
+                <option>卒業式の前日</option>
+                <option>少し元気がない日に</option>
+              </select>
+            </label>
+            <button class="button" type="submit">カードに反映する</button>
+          </form>
         </div>
 
-        <div class="demo-shell" aria-label="re:Memoryのデモ画面">
-          <div class="demo-phone">
-            <div class="demo-top">
-              <span>Memory Capsule</span>
-              <span>小4の春</span>
-            </div>
-            <div class="demo-screen">
-              <div class="memory-photo">
-                <small>選んだ一枚</small>
-                <strong>放課後、はじめて一人で帰った日</strong>
-              </div>
-              <div class="demo-card">
-                <span>今日の言葉</span>
-                <strong>少し不安そうだったけれど、玄関でとても誇らしそうに笑っていた。</strong>
-              </div>
-              <div class="demo-card">
-                <span>次にひらく日</span>
-                <strong>2028年4月8日</strong>
-                <p class="demo-note">中学校の入学前に、親子でもう一度この日へ戻ります。</p>
-              </div>
-              <div class="demo-pill-row" aria-label="思い出の状態">
-                <span class="demo-pill">眠らせる</span>
-                <span class="demo-pill">忘れる余白</span>
-                <span class="demo-pill">未来で再会</span>
-              </div>
-            </div>
+        <aside class="capsule-preview" aria-label="作成された思い出カード">
+          <div class="preview-photo">
+            <small>選んだ一枚</small>
+            <strong id="preview-title">放課後、はじめて二人で帰った日</strong>
           </div>
-        </div>
-      </section>
-
-      <section class="demo-steps" aria-label="デモの流れ">
-        <article class="demo-step">
-          <span class="step-num">01</span>
-          <h2>象徴する一枚を選ぶ</h2>
-          <p>大量に残すのではなく、その日の気持ちが戻ってくる一枚だけを選びます。</p>
-        </article>
-        <article class="demo-step">
-          <span class="step-num">02</span>
-          <h2>親子の言葉を添える</h2>
-          <p>出来事の説明よりも、その日にしかない会話や表情を短く残します。</p>
-        </article>
-        <article class="demo-step">
-          <span class="step-num">03</span>
-          <h2>いったん眠らせる</h2>
-          <p>保存した思い出は日常の一覧から離れ、見返しすぎない余白をつくります。</p>
-        </article>
-        <article class="demo-step">
-          <span class="step-num">04</span>
-          <h2>節目の日に再会する</h2>
-          <p>誕生日、新学期、卒業前など、意味のあるタイミングで思い出が届きます。</p>
-        </article>
+          <div class="preview-card">
+            <span>今日の言葉</span>
+            <p id="preview-message">今日は少し不安。でも、ランドセルがうれしい。</p>
+          </div>
+          <div class="preview-card">
+            <span>次にひらく日</span>
+            <strong id="preview-date">2028年4月8日 / 中学校の入学前</strong>
+          </div>
+          <p class="note">このデモの入力内容は保存されません。本番アプリでは、選んだ写真と言葉を未来の開封日まで眠らせる想定です。</p>
+        </aside>
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <a class="logo" href="./index.html" aria-label="re:Memory トップへ">
-          <img src="./assets/logo.png" alt="" aria-hidden="true">
-          <span>re:Memory</span>
-        </a>
-        <div class="footer-links">
-          <a href="./demo.html">デモ</a>
-          <a href="./guide.html">使い方</a>
-          <a href="./company.html">会社情報</a>
-          <a href="./privacy.html">プライバシーポリシー</a>
-          <a href="./terms.html">利用規約</a>
-        </div>
-      </div>
-    </footer>
+    <script>
+      const form = document.querySelector("#capsule-form");
+      const titleInput = document.querySelector("#capsule-title");
+      const messageInput = document.querySelector("#capsule-message");
+      const dateInput = document.querySelector("#capsule-date");
+      const previewTitle = document.querySelector("#preview-title");
+      const previewMessage = document.querySelector("#preview-message");
+      const previewDate = document.querySelector("#preview-date");
+
+      function updatePreview() {
+        previewTitle.textContent = titleInput.value.trim() || "タイトル未入力の思い出";
+        previewMessage.textContent = messageInput.value.trim() || "ひとことを入力してください。";
+        previewDate.textContent = dateInput.value;
+      }
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        updatePreview();
+      });
+
+      [titleInput, messageInput, dateInput].forEach((input) => {
+        input.addEventListener("input", updatePreview);
+        input.addEventListener("change", updatePreview);
+      });
+    </script>
   </body>
 </html>

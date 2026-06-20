@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>会社情報 | re:Memory</title>
-    <meta name="description" content="re:Memoryの会社情報、運営情報、お問い合わせ先を掲載しています。">
+    <title>プロジェクト情報 | re:Memory</title>
+    <meta name="description" content="re:Memoryのプロジェクト情報、運営方針、お問い合わせについて掲載しています。">
     <link rel="icon" href="./assets/logo.png">
     <style>
       :root {
@@ -12,7 +12,6 @@
         --sub: #60706c;
         --paper: #fff9ef;
         --milk: #fffdf8;
-        --mist: #edf1eb;
         --line: rgba(31, 42, 42, 0.13);
         --green: #176e66;
         --green-deep: #0d4846;
@@ -21,6 +20,7 @@
       }
 
       * { box-sizing: border-box; }
+
       body {
         margin: 0;
         color: var(--ink);
@@ -28,8 +28,10 @@
         font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", system-ui, sans-serif;
         line-height: 1.85;
       }
+
       a { color: inherit; text-decoration: none; }
-      p, h1, h2, h3 { margin: 0; word-break: keep-all; line-break: strict; }
+      img { display: block; width: 100%; }
+      p, h1, h2 { margin: 0; word-break: keep-all; line-break: strict; }
 
       .header {
         position: sticky;
@@ -45,6 +47,7 @@
         border-bottom: 1px solid var(--line);
         backdrop-filter: blur(18px);
       }
+
       .logo { display: inline-flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 850; }
       .logo img { width: 40px; height: 40px; object-fit: cover; border-radius: 50%; box-shadow: 0 8px 20px rgba(31, 42, 42, 0.12); }
       .nav { display: flex; flex-wrap: wrap; gap: 8px; color: var(--sub); font-size: 14px; font-weight: 750; }
@@ -56,6 +59,7 @@
         margin: 0 auto;
         padding: clamp(62px, 9vw, 112px) 0 clamp(76px, 10vw, 128px);
       }
+
       .label {
         display: inline-flex;
         min-height: 32px;
@@ -66,19 +70,21 @@
         border-radius: 8px;
         font-size: 12px;
         font-weight: 850;
-        letter-spacing: 0;
       }
+
       h1 {
         margin-top: 18px;
         font-size: clamp(42px, 7vw, 76px);
         line-height: 1.08;
       }
+
       .lead {
         max-width: 720px;
         margin-top: 24px;
         color: var(--sub);
         font-size: clamp(16px, 2vw, 20px);
       }
+
       .info-card {
         margin-top: clamp(34px, 6vw, 60px);
         padding: clamp(24px, 5vw, 42px);
@@ -87,6 +93,7 @@
         border-radius: 8px;
         box-shadow: var(--shadow);
       }
+
       .info-row {
         display: grid;
         grid-template-columns: 180px minmax(0, 1fr);
@@ -94,20 +101,20 @@
         padding: 18px 0;
         border-bottom: 1px solid var(--line);
       }
+
       .info-row:last-child { border-bottom: 0; }
       .info-row dt { color: var(--green-deep); font-weight: 850; }
       .info-row dd { margin: 0; color: var(--sub); overflow-wrap: anywhere; }
+
       .note {
         margin-top: 22px;
         color: var(--sub);
         font-size: 14px;
+        line-height: 1.9;
       }
-      .site-footer { padding: 34px clamp(20px, 5vw, 64px); color: var(--sub); background: var(--paper); border-top: 1px solid var(--line); }
-      .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; width: min(1120px, 100%); margin: 0 auto; }
-      .footer-links { display: flex; flex-wrap: wrap; gap: 14px 18px; font-size: 13px; font-weight: 750; }
 
       @media (max-width: 760px) {
-        .header, .footer-inner { align-items: flex-start; flex-direction: column; }
+        .header { align-items: flex-start; flex-direction: column; }
         .info-row { grid-template-columns: 1fr; gap: 4px; }
       }
     </style>
@@ -123,52 +130,44 @@
         <a href="./index.html">トップ</a>
         <a href="./demo.html">デモ</a>
         <a href="./guide.html">使い方</a>
-        <a href="./company.html" aria-current="page">会社情報</a>
-        <a href="./privacy.html">プライバシー</a>
+        <a href="./index.html#messages">掲示板</a>
+        <a href="./company.html" aria-current="page">プロジェクト情報</a>
       </nav>
     </header>
+
     <main>
-      <span class="label">Company</span>
+      <span class="label">Project</span>
       <h1>親子の思い出に、もう一度出会う時間を。</h1>
-      <p class="lead">re:Memoryは、思い出を「保存するもの」から「未来で再会する体験」へ変えていくためのプロジェクトです。</p>
+      <p class="lead">
+        re:Memoryは、思い出を「保存するもの」から「未来で再会する体験」へ変えるためのプロジェクトです。
+      </p>
+
       <dl class="info-card">
         <div class="info-row">
           <dt>サービス名</dt>
           <dd>re:Memory</dd>
         </div>
         <div class="info-row">
-          <dt>運営者</dt>
+          <dt>運営</dt>
           <dd>re:Memory Project</dd>
         </div>
         <div class="info-row">
-          <dt>所在地</dt>
-          <dd>東京都内を拠点に準備中</dd>
+          <dt>現在の段階</dt>
+          <dd>LPと体験デモによるコンセプト検証中</dd>
         </div>
         <div class="info-row">
           <dt>事業内容</dt>
-          <dd>親子向け思い出アプリの企画、開発、運営</dd>
+          <dd>親子向け思い出アプリの企画、体験設計、プロトタイプ開発</dd>
         </div>
         <div class="info-row">
           <dt>お問い合わせ</dt>
-          <dd>contact@example.com</dd>
+          <dd>掲示板には個人情報を書かず、正式な連絡先は準備ができ次第掲載します。</dd>
         </div>
       </dl>
-      <p class="note">※ 上記はLP公開用の仮情報です。正式な法人情報や問い合わせ先が決まり次第、差し替えてください。</p>
+
+      <p class="note">
+        このページは公開LP用のプロジェクト情報です。正式な法人情報や問い合わせ先が決まり次第、内容を更新します。
+      </p>
     </main>
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <a class="logo" href="./index.html" aria-label="re:Memory トップへ">
-          <img src="./assets/logo.png" alt="" aria-hidden="true">
-          <span>re:Memory</span>
-        </a>
-        <div class="footer-links">
-          <a href="./demo.html">デモ</a>
-          <a href="./guide.html">使い方</a>
-          <a href="./company.html">会社情報</a>
-          <a href="./privacy.html">プライバシーポリシー</a>
-          <a href="./terms.html">利用規約</a>
-        </div>
-      </div>
-    </footer>
   </body>
 </html>

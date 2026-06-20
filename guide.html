@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>使い方 | re:Memory</title>
-    <meta name="description" content="re:Memoryの基本的な使い方。思い出を残し、眠らせ、未来で再会するまでの流れを紹介します。">
+    <title>使い方と安心設計 | re:Memory</title>
+    <meta name="description" content="re:Memoryの使い方、利用シーン、安心して使うための考え方を紹介します。">
     <link rel="icon" href="./assets/logo.png">
     <style>
       :root {
@@ -12,7 +12,6 @@
         --sub: #60706c;
         --paper: #fff9ef;
         --milk: #fffdf8;
-        --mist: #edf1eb;
         --line: rgba(31, 42, 42, 0.13);
         --green: #176e66;
         --green-deep: #0d4846;
@@ -33,6 +32,7 @@
       }
 
       a { color: inherit; text-decoration: none; }
+      img { display: block; width: 100%; }
       p, h1, h2, h3 { margin: 0; word-break: keep-all; line-break: strict; }
 
       .header {
@@ -81,14 +81,7 @@
       main {
         width: min(1120px, calc(100% - 40px));
         margin: 0 auto;
-      }
-
-      .page-hero {
-        display: grid;
-        grid-template-columns: minmax(0, 0.9fr) minmax(300px, 0.7fr);
-        gap: clamp(34px, 6vw, 76px);
-        align-items: center;
-        padding: clamp(62px, 9vw, 112px) 0 clamp(46px, 7vw, 82px);
+        padding: clamp(58px, 8vw, 104px) 0 clamp(78px, 9vw, 118px);
       }
 
       .label {
@@ -102,60 +95,50 @@
         border-radius: 8px;
         font-size: 12px;
         font-weight: 850;
-        letter-spacing: 0;
       }
 
       h1 {
+        max-width: 860px;
         margin-top: 18px;
         font-size: clamp(42px, 7vw, 82px);
         line-height: 1.08;
       }
 
       .lead {
-        max-width: 690px;
+        max-width: 760px;
         margin-top: 24px;
         color: var(--sub);
         font-size: clamp(16px, 2vw, 20px);
       }
 
-      .preview-card {
-        padding: 26px;
-        background: var(--milk);
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        box-shadow: var(--shadow);
+      .section {
+        padding-top: clamp(62px, 8vw, 96px);
       }
 
-      .preview-card span {
-        color: var(--sub);
-        font-size: 13px;
-        font-weight: 800;
-      }
-
-      .preview-card strong {
-        display: block;
-        margin-top: 10px;
-        color: var(--green-deep);
-        font-size: clamp(25px, 4vw, 40px);
-        line-height: 1.2;
-      }
-
-      .steps {
+      .grid {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 16px;
-        padding: 0 0 clamp(72px, 9vw, 116px);
+        margin-top: 30px;
       }
 
-      .step {
-        min-height: 260px;
+      .two-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 30px;
+      }
+
+      .card {
+        min-width: 0;
         padding: 24px;
-        background: var(--milk);
+        background: rgba(255, 253, 248, 0.76);
         border: 1px solid var(--line);
         border-radius: 8px;
+        box-shadow: 0 14px 36px rgba(31, 42, 42, 0.06);
       }
 
-      .step-num {
+      .num {
         display: inline-grid;
         place-items: center;
         width: 42px;
@@ -168,13 +151,21 @@
       }
 
       h2 {
-        margin-top: 22px;
-        font-size: 23px;
-        line-height: 1.35;
+        margin-top: 18px;
+        font-size: clamp(28px, 4vw, 46px);
+        line-height: 1.2;
       }
 
-      .step p {
-        margin-top: 12px;
+      h3 {
+        margin-top: 18px;
+        color: var(--green-deep);
+        font-size: 20px;
+        line-height: 1.4;
+      }
+
+      .card p,
+      .section p {
+        margin-top: 10px;
         color: var(--sub);
         font-size: 15.5px;
         line-height: 1.9;
@@ -182,34 +173,22 @@
         overflow-wrap: anywhere;
       }
 
-      .site-footer {
-        padding: 34px clamp(20px, 5vw, 64px);
-        color: var(--sub);
-        background: var(--paper);
-        border-top: 1px solid var(--line);
+      .notice {
+        margin-top: 26px;
+        padding: 24px;
+        color: white;
+        background: var(--green-deep);
+        border-radius: 8px;
       }
 
-      .footer-inner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        width: min(1120px, 100%);
-        margin: 0 auto;
-      }
-
-      .footer-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 14px 18px;
-        font-size: 13px;
-        font-weight: 750;
+      .notice p {
+        color: rgba(255, 255, 255, 0.76);
       }
 
       @media (max-width: 900px) {
-        .header, .footer-inner { align-items: flex-start; flex-direction: column; }
-        .page-hero, .steps { grid-template-columns: 1fr; }
-        .step { min-height: auto; }
+        .header { align-items: flex-start; flex-direction: column; }
+        .grid,
+        .two-grid { grid-template-columns: 1fr; }
       }
     </style>
     <link rel="stylesheet" href="./assets/premium.css">
@@ -224,59 +203,86 @@
         <a href="./index.html">トップ</a>
         <a href="./demo.html">デモ</a>
         <a href="./guide.html" aria-current="page">使い方</a>
+        <a href="./index.html#messages">掲示板</a>
         <a href="./company.html">会社情報</a>
-        <a href="./privacy.html">プライバシー</a>
       </nav>
     </header>
+
     <main>
-      <section class="page-hero">
-        <div>
-          <span class="label">Guide</span>
-          <h1>思い出を預けて、未来でひらく。</h1>
-          <p class="lead">re:Memoryは、写真を増やすためのアプリではありません。親子の言葉と一緒に思い出を眠らせ、節目の日にもう一度出会うための体験です。</p>
-        </div>
-        <div class="preview-card">
-          <span>次にひらく日</span>
-          <strong>誕生日、新学期、卒業前など親子の節目に。</strong>
+      <span class="label">Guide</span>
+      <h1>思い出を預けて、未来でひらくまで。</h1>
+      <p class="lead">
+        re:Memoryは、写真を増やすためのアプリではありません。親子の言葉と一緒に思い出を眠らせ、節目の日にもう一度出会うための体験です。
+      </p>
+
+      <section class="section">
+        <span class="label">Flow</span>
+        <h2>使い方</h2>
+        <div class="grid">
+          <article class="card">
+            <span class="num">01</span>
+            <h3>写真を選ぶ</h3>
+            <p>その日を象徴する一枚を選びます。たくさん残すより、未来で見返したい場面を大切にします。</p>
+          </article>
+          <article class="card">
+            <span class="num">02</span>
+            <h3>言葉を添える</h3>
+            <p>出来事の説明ではなく、その日の気持ちを短く残します。親の言葉でも子どもの言葉でも構いません。</p>
+          </article>
+          <article class="card">
+            <span class="num">03</span>
+            <h3>眠らせる</h3>
+            <p>保存した思い出は、日常の一覧から離れます。削除ではなく、忘れる余白をつくります。</p>
+          </article>
+          <article class="card">
+            <span class="num">04</span>
+            <h3>再会する</h3>
+            <p>誕生日、新学期、卒業前などの節目に、思い出がもう一度届きます。</p>
+          </article>
         </div>
       </section>
-      <section class="steps" aria-label="使い方の流れ">
-        <article class="step">
-          <span class="step-num">01</span>
-          <h2>写真を選ぶ</h2>
-          <p>その日を象徴する写真や動画をひとつ選びます。大量に残すよりも、あとから見返したい一場面を大切にします。</p>
-        </article>
-        <article class="step">
-          <span class="step-num">02</span>
-          <h2>一言を添える</h2>
-          <p>親の気持ち、子どもの言葉、何気ない会話を短く残します。未来で価値になるのは、出来事よりもその日の温度です。</p>
-        </article>
-        <article class="step">
-          <span class="step-num">03</span>
-          <h2>眠らせる</h2>
-          <p>保存した思い出は、日常の一覧から見えなくなります。削除ではなく、忘れるための余白をつくります。</p>
-        </article>
-        <article class="step">
-          <span class="step-num">04</span>
-          <h2>再会する</h2>
-          <p>指定した日やアプリが選ぶ節目に思い出が届きます。開いたあとには、今の気持ちを重ねて残せます。</p>
-        </article>
+
+      <section class="section">
+        <span class="label">Safety</span>
+        <h2>安心して使うために</h2>
+        <div class="two-grid">
+          <article class="card">
+            <h3>公開されるものを分ける</h3>
+            <p>LPの掲示板は公開のひとこと用です。個人情報、住所、学校名、顔写真につながる内容は書かないでください。</p>
+          </article>
+          <article class="card">
+            <h3>大切な記録は閉じた場所へ</h3>
+            <p>本番アプリでは、家族の写真や言葉を安全に扱う前提で設計します。LPではコンセプト体験に絞っています。</p>
+          </article>
+        </div>
+        <div class="notice">
+          <h3>このLPでできること</h3>
+          <p>3分デモでカード作成を試すこと、掲示板に短いひとことを投稿すること、使い方と考え方を確認することができます。</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <span class="label">FAQ</span>
+        <h2>よくある質問</h2>
+        <div class="two-grid">
+          <article class="card">
+            <h3>すぐ見返せないのは不便では？</h3>
+            <p>便利さよりも、時間を置いて再会する価値を大切にしています。日常の一覧から離すことで、未来の驚きが残ります。</p>
+          </article>
+          <article class="card">
+            <h3>無料で試せますか？</h3>
+            <p>このLPでは無料でデモを試せます。本番アプリの料金や公開時期は、今後の検証に合わせて整理します。</p>
+          </article>
+          <article class="card">
+            <h3>子どもだけでも使えますか？</h3>
+            <p>親子で一緒に使う体験を想定しています。子どもの言葉を親が残す使い方もできます。</p>
+          </article>
+          <article class="card">
+            <h3>掲示板の投稿は削除できますか？</h3>
+            <p>LPの簡易掲示板では削除機能をまだ用意していません。公開されて困る内容は投稿しないでください。</p>
+          </article>
+        </div>
       </section>
     </main>
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <a class="logo" href="./index.html" aria-label="re:Memory トップへ">
-          <img src="./assets/logo.png" alt="" aria-hidden="true">
-          <span>re:Memory</span>
-        </a>
-        <div class="footer-links">
-          <a href="./demo.html">デモ</a>
-          <a href="./guide.html">使い方</a>
-          <a href="./company.html">会社情報</a>
-          <a href="./privacy.html">プライバシーポリシー</a>
-          <a href="./terms.html">利用規約</a>
-        </div>
-      </div>
-    </footer>
   </body>
 </html>
