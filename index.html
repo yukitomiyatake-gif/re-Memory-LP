@@ -513,6 +513,34 @@ h3 {
   box-shadow: none;
 }
 
+.site-footer {
+  padding: 34px clamp(20px, 5vw, 64px);
+  color: var(--sub);
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: min(1120px, 100%);
+  margin: 0 auto;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 18px;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.footer-links a:hover {
+  color: var(--green-deep);
+}
+
 @media (max-width: 920px) {
   .header {
     position: static;
@@ -535,6 +563,11 @@ h3 {
   .flow,
   .mvp-list {
     grid-template-columns: 1fr;
+  }
+
+  .footer-inner {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .statement-inner,
@@ -613,8 +646,9 @@ h3 {
       </a>
       <nav class="nav" aria-label="ページ内ナビゲーション">
         <a href="#why">なぜ作るのか</a>
-        <a href="#how">どう使うのか</a>
+        <a href="guide.html">使い方</a>
         <a href="#mvp">最初の機能</a>
+        <a href="company.html">会社情報</a>
       </nav>
     </header>
 
@@ -753,6 +787,20 @@ h3 {
         <a class="button primary" href="#top">トップへ戻る</a>
       </section>
     </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <a class="logo" href="./index.html" aria-label="re:Memory トップへ">
+          <img src="./assets/logo.png" alt="" aria-hidden="true">
+          <span>re:Memory</span>
+        </a>
+        <div class="footer-links" aria-label="補足ページ">
+          <a href="./guide.html">使い方</a>
+          <a href="./company.html">会社情報</a>
+          <a href="./privacy.html">プライバシーポリシー</a>
+          <a href="./terms.html">利用規約</a>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
 

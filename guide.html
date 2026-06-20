@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>使い方 | re:Memory</title>
+    <meta name="description" content="re:Memoryの基本的な使い方。思い出を残し、眠らせ、未来で再会するまでの流れを紹介します。">
+    <link rel="icon" href="./assets/logo.png">
+    <style>
+      :root {
+        --ink: #1f2a2a;
+        --sub: #60706c;
+        --paper: #fff9ef;
+        --milk: #fffdf8;
+        --mist: #edf1eb;
+        --line: rgba(31, 42, 42, 0.13);
+        --green: #176e66;
+        --green-deep: #0d4846;
+        --green-soft: #dbece7;
+        --clay: #c86b55;
+        --clay-soft: #f7dfd4;
+        --shadow: 0 22px 58px rgba(31, 42, 42, 0.12);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: radial-gradient(circle at right top, #eef4ea 0, rgba(238, 244, 234, 0) 36%), var(--paper);
+        font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", system-ui, sans-serif;
+        line-height: 1.85;
+      }
+
+      a { color: inherit; text-decoration: none; }
+      p, h1, h2, h3 { margin: 0; word-break: keep-all; line-break: strict; }
+
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        min-height: 72px;
+        padding: 16px clamp(20px, 5vw, 64px);
+        background: rgba(255, 249, 239, 0.9);
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(18px);
+      }
+
+      .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 17px;
+        font-weight: 850;
+      }
+
+      .logo img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 8px 20px rgba(31, 42, 42, 0.12);
+      }
+
+      .nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        color: var(--sub);
+        font-size: 14px;
+        font-weight: 750;
+      }
+
+      .nav a { padding: 8px 12px; border-radius: 8px; }
+      .nav a:hover, .nav a[aria-current="page"] { color: var(--green-deep); background: rgba(23, 110, 102, 0.08); }
+
+      main {
+        width: min(1120px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .page-hero {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(300px, 0.7fr);
+        gap: clamp(34px, 6vw, 76px);
+        align-items: center;
+        padding: clamp(62px, 9vw, 112px) 0 clamp(46px, 7vw, 82px);
+      }
+
+      .label {
+        display: inline-flex;
+        width: fit-content;
+        min-height: 32px;
+        padding: 5px 11px;
+        color: var(--green-deep);
+        background: var(--green-soft);
+        border: 1px solid rgba(23, 110, 102, 0.15);
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 850;
+        letter-spacing: 0;
+      }
+
+      h1 {
+        margin-top: 18px;
+        font-size: clamp(42px, 7vw, 82px);
+        line-height: 1.08;
+      }
+
+      .lead {
+        max-width: 690px;
+        margin-top: 24px;
+        color: var(--sub);
+        font-size: clamp(16px, 2vw, 20px);
+      }
+
+      .preview-card {
+        padding: 26px;
+        background: var(--milk);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+      }
+
+      .preview-card span {
+        color: var(--sub);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .preview-card strong {
+        display: block;
+        margin-top: 10px;
+        color: var(--green-deep);
+        font-size: clamp(25px, 4vw, 40px);
+        line-height: 1.2;
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+        padding: 0 0 clamp(72px, 9vw, 116px);
+      }
+
+      .step {
+        min-height: 260px;
+        padding: 24px;
+        background: var(--milk);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      .step-num {
+        display: inline-grid;
+        place-items: center;
+        width: 42px;
+        height: 30px;
+        color: var(--clay);
+        background: var(--clay-soft);
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      h2 {
+        margin-top: 22px;
+        font-size: 23px;
+        line-height: 1.35;
+      }
+
+      .step p {
+        margin-top: 12px;
+        color: var(--sub);
+        font-size: 15.5px;
+        line-height: 1.9;
+        word-break: normal;
+        overflow-wrap: anywhere;
+      }
+
+      .site-footer {
+        padding: 34px clamp(20px, 5vw, 64px);
+        color: var(--sub);
+        background: var(--paper);
+        border-top: 1px solid var(--line);
+      }
+
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        width: min(1120px, 100%);
+        margin: 0 auto;
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px 18px;
+        font-size: 13px;
+        font-weight: 750;
+      }
+
+      @media (max-width: 900px) {
+        .header, .footer-inner { align-items: flex-start; flex-direction: column; }
+        .page-hero, .steps { grid-template-columns: 1fr; }
+        .step { min-height: auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <a class="logo" href="./index.html" aria-label="re:Memory トップへ">
+        <img src="./assets/logo.png" alt="" aria-hidden="true">
+        <span>re:Memory</span>
+      </a>
+      <nav class="nav" aria-label="ページナビゲーション">
+        <a href="./index.html">トップ</a>
+        <a href="./guide.html" aria-current="page">使い方</a>
+        <a href="./company.html">会社情報</a>
+        <a href="./privacy.html">プライバシー</a>
+      </nav>
+    </header>
+    <main>
+      <section class="page-hero">
+        <div>
+          <span class="label">Guide</span>
+          <h1>思い出を預けて、未来でひらく。</h1>
+          <p class="lead">re:Memoryは、写真を増やすためのアプリではありません。親子の言葉と一緒に思い出を眠らせ、節目の日にもう一度出会うための体験です。</p>
+        </div>
+        <div class="preview-card">
+          <span>次にひらく日</span>
+          <strong>誕生日、新学期、卒業前など親子の節目に。</strong>
+        </div>
+      </section>
+      <section class="steps" aria-label="使い方の流れ">
+        <article class="step">
+          <span class="step-num">01</span>
+          <h2>写真を選ぶ</h2>
+          <p>その日を象徴する写真や動画をひとつ選びます。大量に残すよりも、あとから見返したい一場面を大切にします。</p>
+        </article>
+        <article class="step">
+          <span class="step-num">02</span>
+          <h2>一言を添える</h2>
+          <p>親の気持ち、子どもの言葉、何気ない会話を短く残します。未来で価値になるのは、出来事よりもその日の温度です。</p>
+        </article>
+        <article class="step">
+          <span class="step-num">03</span>
+          <h2>眠らせる</h2>
+          <p>保存した思い出は、日常の一覧から見えなくなります。削除ではなく、忘れるための余白をつくります。</p>
+        </article>
+        <article class="step">
+          <span class="step-num">04</span>
+          <h2>再会する</h2>
+          <p>指定した日やアプリが選ぶ節目に思い出が届きます。開いたあとには、今の気持ちを重ねて残せます。</p>
+        </article>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <a class="logo" href="./index.html" aria-label="re:Memory トップへ">
+          <img src="./assets/logo.png" alt="" aria-hidden="true">
+          <span>re:Memory</span>
+        </a>
+        <div class="footer-links">
+          <a href="./guide.html">使い方</a>
+          <a href="./company.html">会社情報</a>
+          <a href="./privacy.html">プライバシーポリシー</a>
+          <a href="./terms.html">利用規約</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
