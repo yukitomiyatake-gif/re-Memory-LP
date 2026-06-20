@@ -486,6 +486,108 @@ h3 {
   overflow-wrap: anywhere;
 }
 
+.board {
+  padding-top: clamp(6px, 3vw, 30px);
+}
+
+.board-panel {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(22px, 4vw, 42px);
+  padding: clamp(28px, 5vw, 52px);
+  background: rgba(255, 253, 248, 0.78);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 18px 52px rgba(31, 42, 42, 0.08);
+}
+
+.board-copy h2 {
+  margin-top: 18px;
+  font-size: clamp(30px, 4vw, 46px);
+}
+
+.message-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.message-form label {
+  display: grid;
+  gap: 7px;
+  color: var(--sub);
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.message-form input,
+.message-form textarea {
+  width: 100%;
+  border: 1px solid rgba(31, 42, 42, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.76);
+  color: var(--ink);
+  font: inherit;
+}
+
+.message-form input {
+  min-height: 46px;
+  padding: 10px 12px;
+}
+
+.message-form textarea {
+  min-height: 120px;
+  resize: vertical;
+  padding: 12px;
+}
+
+.message-form input:focus,
+.message-form textarea:focus {
+  outline: 2px solid rgba(23, 110, 102, 0.22);
+  border-color: rgba(23, 110, 102, 0.38);
+}
+
+.message-status {
+  min-height: 24px;
+  color: var(--sub);
+  font-size: 13px;
+}
+
+.message-list {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+
+.message-list article,
+.message-empty {
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.64);
+  border: 1px solid rgba(31, 42, 42, 0.1);
+  border-radius: 8px;
+}
+
+.message-list header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--sub);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.message-list p,
+.message-empty {
+  margin-top: 8px;
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.9;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  line-break: auto;
+}
+
 .closing {
   display: grid;
   justify-items: center;
@@ -548,6 +650,7 @@ h3 {
 
   .hero,
   .two-column,
+  .board-panel,
   .mvp-panel {
     grid-template-columns: 1fr;
   }
@@ -650,6 +753,7 @@ h3 {
         <a href="demo.html">デモ</a>
         <a href="guide.html">使い方</a>
         <a href="#mvp">最初の機能</a>
+        <a href="#messages">掲示板</a>
         <a href="company.html">会社情報</a>
       </nav>
     </header>
@@ -779,6 +883,33 @@ h3 {
         </div>
       </section>
 
+      <section id="messages" class="section board">
+        <div class="board-panel">
+          <div class="board-copy">
+            <div class="section-label">Messages</div>
+            <h2>
+              <span class="line">未来に残したい</span>
+              <span class="line">ひとことを集める。</span>
+            </h2>
+            <form class="message-form" id="message-form">
+              <label>
+                お名前
+                <input id="message-name" name="name" type="text" autocomplete="name" maxlength="40" placeholder="例：山田">
+              </label>
+              <label>
+                ひとこと
+                <textarea id="message-text" name="message" required maxlength="400" placeholder="今の気持ちを書いてください"></textarea>
+              </label>
+              <button class="button primary" type="submit">投稿する</button>
+              <p class="message-status" id="message-status" aria-live="polite"></p>
+            </form>
+          </div>
+          <div class="message-list" id="message-list" aria-live="polite">
+            <p class="message-empty">読み込み中です。</p>
+          </div>
+        </div>
+      </section>
+
       <section class="closing">
         <p>忘れないためではなく、もう一度出会うために。</p>
         <h2>
@@ -804,6 +935,107 @@ h3 {
         </div>
       </div>
     </footer>
+    <script type="module">
+      import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+      const supabase = createClient(
+        "https://ytuspapgaxwuqpovunsn.supabase.co",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0dXNwYXBnYXh3dXFwb3Z1bnNuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5MDE5NjQsImV4cCI6MjA5NzQ3Nzk2NH0.jfUVCn2DQPg7sT4PlTTrQ8UcYdwxtYBsCrBiM0KLdQc"
+      );
+
+      const form = document.querySelector("#message-form");
+      const nameInput = document.querySelector("#message-name");
+      const messageInput = document.querySelector("#message-text");
+      const statusText = document.querySelector("#message-status");
+      const messageList = document.querySelector("#message-list");
+
+      const dateFormatter = new Intl.DateTimeFormat("ja-JP", {
+        month: "numeric",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+
+      function escapeHtml(value) {
+        return value.replace(/[&<>"']/g, (char) => ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;"
+        })[char]);
+      }
+
+      function renderMessages(messages) {
+        if (!messages.length) {
+          messageList.innerHTML = '<p class="message-empty">まだ投稿はありません。</p>';
+          return;
+        }
+
+        messageList.innerHTML = messages.map((item) => {
+          const name = escapeHtml(item.name || "匿名");
+          const message = escapeHtml(item.body || item.message || "");
+          const createdAt = item.created_at ? dateFormatter.format(new Date(item.created_at)) : "";
+
+          return `
+            <article>
+              <header>
+                <span>${name}</span>
+                <time>${createdAt}</time>
+              </header>
+              <p>${message}</p>
+            </article>
+          `;
+        }).join("");
+      }
+
+      async function loadMessages() {
+        const { data, error } = await supabase
+          .from("messages")
+          .select("name, body, message, created_at")
+          .order("created_at", { ascending: false })
+          .limit(12);
+
+        if (error) {
+          messageList.innerHTML = '<p class="message-empty">投稿を読み込めませんでした。</p>';
+          return;
+        }
+
+        renderMessages(data || []);
+      }
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const name = nameInput.value.trim();
+        const message = messageInput.value.trim();
+
+        if (!message) {
+          statusText.textContent = "ひとことを入力してください。";
+          return;
+        }
+
+        statusText.textContent = "送信中です。";
+        form.querySelector("button").disabled = true;
+
+        const { error } = await supabase
+          .from("messages")
+          .insert({ name: name || null, body: message });
+
+        form.querySelector("button").disabled = false;
+
+        if (error) {
+          statusText.textContent = "送信できませんでした。";
+          return;
+        }
+
+        statusText.textContent = "投稿しました。";
+        form.reset();
+        await loadMessages();
+      });
+
+      loadMessages();
+    </script>
   </body>
 </html>
 
